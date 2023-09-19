@@ -17,13 +17,6 @@
             {
               "title": "Application Gateway",
               "link": "generated",
-              "items": [
-                {
-                  "document": "docs/tin-card/onboarding/application-gateway/Check-Exist-Customer.mdx",
-                  "label": "CheckExistCustomer",
-                  "_template": "doc"
-                }
-              ],
               "_template": "category"
             }
           ],
