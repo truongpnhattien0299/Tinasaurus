@@ -827,6 +827,7 @@ export default defineConfig({
   build: {
     outputFolder: "admin",
     publicFolder: "static",
+    basePath: "Tinasaurus",
   },
   media: {
     tina: {
