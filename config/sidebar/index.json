@@ -10,6 +10,11 @@
           "link": "generated",
           "items": [
             {
+              "title": "CRM Gateway",
+              "link": "generated",
+              "_template": "category"
+            },
+            {
               "title": "Application Gateway",
               "link": "generated",
               "_template": "category"
