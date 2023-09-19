@@ -17,6 +17,13 @@
             {
               "title": "Application Gateway",
               "link": "generated",
+              "items": [
+                {
+                  "document": "docs/api-app-gateway.mdx",
+                  "label": "CheckExistCustomer",
+                  "_template": "doc"
+                }
+              ],
               "_template": "category"
             }
           ],
