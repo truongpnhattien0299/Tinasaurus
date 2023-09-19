@@ -20,7 +20,7 @@
               "items": [
                 {
                   "document": "docs/tin-card/onboarding/application-gateway/Check-Exist-Customer.mdx",
-                  "label": "CheckExistCustomer",
+                  "label": "Check Exist Customer",
                   "_template": "doc"
                 }
               ],
