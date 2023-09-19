@@ -11,25 +11,6 @@
       "label": "Blog",
       "link": "blog",
       "position": "left"
-    },
-    {
-      "label": "MDX Page",
-      "link": "page",
-      "docLink": "src/pages/Test-MDX-Page.mdx",
-      "pageLink": "src/pages/Test-MDX-Page.mdx",
-      "position": "left"
-    },
-    {
-      "label": "Docusaurus GitHub",
-      "link": "external",
-      "externalLink": "https://github.com/facebook/docusaurus",
-      "position": "right"
-    },
-    {
-      "label": "Tina",
-      "link": "external",
-      "externalLink": "https://tina.io/",
-      "position": "right"
     }
   ],
   "logo": {
@@ -92,5 +73,5 @@
     ],
     "copyright": "Vietcredit, Inc. Built with Docusaurus."
   },
-  "url": "http://localhost:3001/"
+  "url": "https://172.27.6.19/"
 }
