@@ -6,62 +6,188 @@
       "_template": "doc"
     },
     {
-      "title": "Tutorial - Basics",
+      "title": "Tin Card",
       "link": "generated",
       "items": [
         {
-          "document": "docs/tutorial-basics/create-a-page.mdx",
-          "_template": "doc"
-        },
-        {
-          "document": "docs/tutorial-basics/create-a-document.mdx",
-          "_template": "doc"
-        },
-        {
-          "document": "docs/tutorial-basics/create-a-blog-post.mdx",
-          "_template": "doc"
-        },
-        {
-          "document": "docs/tutorial-basics/deploy-your-site.mdx",
-          "_template": "doc"
-        },
-        {
-          "document": "docs/tutorial-basics/congratulations.mdx",
-          "_template": "doc"
-        }
-      ],
-      "_template": "category"
-    },
-    {
-      "title": "Tutorial - Extras",
-      "link": "generated",
-      "items": [
-        {
-          "document": "docs/tutorial-extras/manage-docs-versions.mdx",
-          "_template": "doc"
-        },
-        {
-          "document": "docs/tutorial-extras/translate-your-site.mdx",
-          "_template": "doc"
-        }
-      ],
-      "_template": "category"
-    },
-    {
-      "title": "Nested Link",
-      "link": "none",
-      "items": [
-        {
-          "title": "Level 2",
-          "link": "none",
+          "title": "Onboarding",
+          "link": "generated",
           "items": [
             {
-              "title": "Level 3",
-              "link": "none",
+              "title": "Application Gateway",
+              "link": "generated",
               "items": [
                 {
-                  "document": "docs/test-page.mdx",
-                  "label": "",
+                  "document": "docs/tin-card/onboarding/application-gateway/GetLinkUpload.mdx",
+                  "label": "Get Link Upload (UAT)",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/GetTicketPromotion.mdx",
+                  "label": "Get Ticket Promotion (UAT)",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/check-exist-customer.mdx",
+                  "label": "Check Exist Customer",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/master-data-query.mdx",
+                  "label": "Master Data Query",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/ChipIDDataSave.mdx",
+                  "label": "Chip ID Data Save",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/CollectingUploadFile.mdx",
+                  "label": "Collecting Upload File",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/LoanApplicationCreate.mdx",
+                  "label": "Loan Application Create",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/VAppPermissionStatus.mdx",
+                  "label": "VApp Permission Status",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/VAppPermissionChecked.mdx",
+                  "label": "VApp Permission Checked",
+                  "_template": "doc"
+                }
+              ],
+              "_template": "category"
+            },
+            {
+              "title": "CRM Gateway",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/tin-card/onboarding/crm-gateway/crm-active-virtual-active-omni.mdx",
+                  "label": "CRM Active Virtual Active Omni",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/crm-gateway/crm-ticket-query.mdx",
+                  "label": "CRM Ticket Query",
+                  "_template": "doc"
+                }
+              ],
+              "_template": "category"
+            },
+            {
+              "title": "EContract Gateway",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/tin-card/onboarding/e-contract-gateway/EContractQuery.mdx",
+                  "label": "EContract Query",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/e-contract-gateway/EFormCreate.mdx",
+                  "label": "EForm Create",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/e-contract-gateway/EFormSign.mdx",
+                  "label": "EForm Sign",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/e-contract-gateway/EContractSignRequest.mdx",
+                  "label": "EContract Sign Request",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/e-contract-gateway/EContractSignConfirm.mdx",
+                  "label": "EContract Sign Confirm",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/e-contract-gateway/EContractSignRenewOTP.mdx",
+                  "label": "EContract Sign Renew OTP",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/e-contract-gateway/EContractDeviceUpdate.mdx",
+                  "label": "EContract Device Update",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/e-contract-gateway/EContractSignReject.mdx",
+                  "label": "EContract Sign Reject",
+                  "_template": "doc"
+                }
+              ],
+              "_template": "category"
+            },
+            {
+              "title": "Payment Gateway",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/tin-card/onboarding/payment-gateway/Purchase.mdx",
+                  "label": "Purchase",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/payment-gateway/PurchaseReversal.mdx",
+                  "label": "Purchase Reversal",
+                  "_template": "doc"
+                }
+              ],
+              "_template": "category"
+            },
+            {
+              "title": "Service Gateway",
+              "link": "generated",
+              "items": [
+                {
+                  "document": "docs/tin-card/onboarding/service-gateway/OTPRequest.mdx",
+                  "label": "OTP Request",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/service-gateway/OTPConfirm.mdx",
+                  "label": "OTP Confirm",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/service-gateway/CMSCustomerQuery.mdx",
+                  "label": "CMS Customer Query",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/service-gateway/CMSTransactionSearch.mdx",
+                  "label": "CMS Transaction Search",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/service-gateway/SmsNotify.mdx",
+                  "label": "Sms Notify",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/service-gateway/EmailNotify.mdx",
+                  "label": "Email Notify",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/service-gateway/CMSCardQuery.mdx",
+                  "label": "CMS Card Query",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/service-gateway/CMSCardsQuery.mdx",
+                  "label": "CMS Cards Query",
                   "_template": "doc"
                 }
               ],
@@ -69,14 +195,38 @@
             }
           ],
           "_template": "category"
+        },
+        {
+          "title": "OTT",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/tin-card/ott/notifycation-gateway.mdx",
+              "label": "Notifycation Gateway",
+              "_template": "doc"
+            }
+          ],
+          "_template": "category"
+        },
+        {
+          "title": "Sync Data",
+          "link": "generated",
+          "items": [
+            {
+              "document": "docs/tin-card/sync-data/customer-app-gateway.mdx",
+              "label": "Customer App Gateway",
+              "_template": "doc"
+            },
+            {
+              "document": "docs/tin-card/sync-data/application-gateway.mdx",
+              "label": "Application Gateway",
+              "_template": "doc"
+            }
+          ],
+          "_template": "category"
         }
       ],
       "_template": "category"
-    },
-    {
-      "title": "Tina.io",
-      "href": "https://tina.io/",
-      "_template": "link"
     }
   ]
 }
