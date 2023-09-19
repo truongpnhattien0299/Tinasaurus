@@ -2,6 +2,25 @@
   "label": "Docs Sidebar",
   "items": [
     {
+      "title": "Tin Card",
+      "link": "generated",
+      "items": [
+        {
+          "title": "Onboarding",
+          "link": "generated",
+          "items": [
+            {
+              "title": "Application Gateway",
+              "link": "generated",
+              "_template": "category"
+            }
+          ],
+          "_template": "category"
+        }
+      ],
+      "_template": "category"
+    },
+    {
       "document": "docs/intro.mdx",
       "_template": "doc"
     },
