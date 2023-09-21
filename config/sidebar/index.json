@@ -18,16 +18,6 @@
               "link": "generated",
               "items": [
                 {
-                  "document": "docs/tin-card/onboarding/application-gateway/GetLinkUpload.mdx",
-                  "label": "Get Link Upload (UAT)",
-                  "_template": "doc"
-                },
-                {
-                  "document": "docs/tin-card/onboarding/application-gateway/GetTicketPromotion.mdx",
-                  "label": "Get Ticket Promotion (UAT)",
-                  "_template": "doc"
-                },
-                {
                   "document": "docs/tin-card/onboarding/application-gateway/check-exist-customer.mdx",
                   "label": "Check Exist Customer",
                   "_template": "doc"
@@ -60,6 +50,16 @@
                 {
                   "document": "docs/tin-card/onboarding/application-gateway/VAppPermissionChecked.mdx",
                   "label": "VApp Permission Checked",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/GetLinkUpload.mdx",
+                  "label": "Get Link Upload (UAT)",
+                  "_template": "doc"
+                },
+                {
+                  "document": "docs/tin-card/onboarding/application-gateway/GetTicketPromotion.mdx",
+                  "label": "Get Ticket Promotion (UAT)",
                   "_template": "doc"
                 }
               ],
