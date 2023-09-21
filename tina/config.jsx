@@ -14,6 +14,8 @@ const branch =
   process.env.HEAD ||
   "main";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL || "";
+
 const WarningIcon = (props) => {
   return (
     <svg
@@ -820,14 +822,12 @@ const PagesCollection = {
 
 export default defineConfig({
   branch,
-  clientId:
-    process.env.NEXT_PUBLIC_TINA_CLIENT_ID ||
-    "f8bd4b0a-b38e-48af-a127-8e995ecd95bc", // Get this from tina.io
-  token: process.env.TINA_TOKEN || "7d60b2c4ff55f82b20e18d4d81befe545a8a0da1", // Get this from tina.io
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, // Get this from tina.io
+  token: process.env.TINA_TOKEN, // Get this from tina.io
   build: {
     outputFolder: "admin",
     publicFolder: "static",
-    basePath: "Tinasaurus",
+    basePath: baseUrl,
   },
   media: {
     tina: {
