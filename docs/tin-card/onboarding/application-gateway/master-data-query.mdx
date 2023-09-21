@@ -1,3 +1,405 @@
 ---
 title: Master Data Query
+description: Get master data
+tags:
+  - call in
 ---
+
+Get master data
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+`None`
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "Cities": [
+    {
+      "CityCode": "01",
+      "LocalName": "Thành phố Hà Nội"
+    },
+    {
+      …
+    }
+  ],
+  "Districts": [
+    {
+      "DistrictCode": "001",
+      "CityCode": "01",
+      "LocalName": "Quận Ba Đình"
+    },
+    {
+      …
+    }
+  ],
+  "Wards": [
+    {
+      "WardCode": "00001",
+      "DistrictCode": "001",
+      "LocalName": "Phường Phúc Xá"
+    },
+    {
+      …
+    }
+  ],
+  "IssuePlaces": [
+    {
+      "Display": "CỤC TRƯỞNG CỤC CẢNH SÁT ĐKQL CƯ TRÚ VÀ DLQG VỀ D N CƯ",
+      "Value": "CCS"
+    },
+    {
+      …
+    }
+  ],
+  "Relationships": [
+    {
+      "Code": "OLSTUDENTCARD",
+      "Value": [
+        {
+          "Display": "Father/Cha",
+          "Value": "Father"
+        },
+        {
+          "Display": "Mother/Mẹ",
+          "Value": "Mother"
+        }
+      ]
+    },
+    {
+      "Code": "OLEXPRESSCARD",
+      "Value": [
+        {
+          "Display": "Spouse/Vợ chồng",
+          "Value": "Spouse"
+        },
+        {
+          …
+        }
+      ]
+    }
+  ],
+  "Genders": [
+    {
+      "Display": "Nam",
+      "Value": "MALE"
+    },
+    {
+      "Display": "Nữ",
+      "Value": "FEMALE"
+    }
+  ],
+  "CardTypes": [
+    {
+      "Display": "Auto Card",
+      "Value": "AUTOCARD"
+    },
+    {
+      …
+    }
+  ],
+  "DocumentTypes": [
+    {
+      "DocumentTypeCode": "D003",
+      "DocumentTypeName": "CHỨNG TỪ NH N TH N"
+    },
+    {
+      "DocumentTypeCode": "D004",
+      "DocumentTypeName": "HÌNH ẢNH KHÁCH HÀNG"
+    },
+    {
+      "DocumentTypeCode": "D005",
+      "DocumentTypeName": "CHỨNG TỪ THU NHẬP"
+    },
+    {
+      "DocumentTypeCode": "D012",
+      "DocumentTypeName": "THÔNG TIN THUÊ BAO"
+    }
+  ],
+  "DeliveryAddress": [
+    {
+      "Display": "Địa chỉ nơi ở hiện tại",
+      "Value": "Residential Address"
+    },
+    {
+      "Display": "Địa chỉ nơi công tác/trường học",
+      "Value": "Office Address"
+    }
+  ],
+  "PaymentDays": [
+    {
+      "Display": "Ngày 02 hàng tháng",
+      "Value": "2"
+    },
+    {
+      …
+    }
+  ],
+  "Universities": [
+    {
+      "UniversityId": 119,
+      "UniversityName": "Đại học FPT Hồ Chí Minh",
+      "TaxCode": "0102100740-001",
+      "PhoneNumber": "02873001866",
+      "WebsiteLogin": "https://fap.fpt.edu.vn/Phuhuynh/Login.aspx",
+      "Limit": 5000000,
+      "IsRPALink": true,
+      "City": "HCMI",
+      "District": "Quan9",
+      "Ward": "26833",
+      "Address": "Lô E2a-7, Đường D1 Khu Công nghệ cao",
+      "IsDisable": false,
+      "CityCode": "79",
+      "DistrictCode": "763"
+    },
+    {
+      …
+    },
+  ],
+  "Designations": [                         //Chức vụ
+    {
+      "Display": "Nhân viên",
+      "Value": "Nhân viên/junior officer"
+    },
+    {
+      "Display": "Chuyên viên",
+      "Value": "Chuyên viên/senior officer"
+    },
+    {
+      "Display": "Trưởng bộ phận",
+      "Value": "Trưởng bộ phận/team leader"
+    },
+    {
+      "Display": "Trưởng phòng",
+      "Value": "Trưởng phòng/manager/deputy manager"
+    },
+    {
+      "Display": "Ban Giám Đốc",
+      "Value": "Ban giám đốc/board of director"
+    }
+  ],
+  "CompanyType": [                                  //Loại hình công ty
+    {
+      "Display": "Cổ phần",
+      "Value": "Aut Body"
+    },
+    {
+      "Display": "Hợp tác xã",
+      "Value": "Cooperative"
+    },
+    {
+      "Display": "Công ty nước ngoài",
+      "Value": "Fr_Comp"
+    },
+    {
+      "Display": "HKD có giấy phép ĐKKD",
+      "Value": "HKD co GP DKKD"
+    },
+    {
+      "Display": "HKD không GP-ĐKKD - Sổ HK",
+      "Value": "HKD khong co giay DKKD - So ho khau"
+    },
+    {
+      "Display": "HKD không GP-ĐKKD - Xác nhận tạm trú",
+      "Value": "HKD khong co giay DKKD - Xac nhan tam tru"
+    },
+    {
+      "Display": "TNHH",
+      "Value": "LtdLiaPrt"
+    },
+    {
+      "Display": "Nước ngoài - International",
+      "Value": "Multinational"
+    },
+    {
+      "Display": "Hợp danh/ Hợp tác xã",
+      "Value": "Partnership"
+    },
+    {
+      "Display": "Nhà nước",
+      "Value": "PSU"
+    },
+    {
+      "Display": "Public Limited Co.",
+      "Value": "Public Ltd. Co."
+    },
+    {
+      "Display": "Doanh nghiệp tư nhân",
+      "Value": "Pvt. Ltd. Co."
+    },
+    {
+      "Display": "Tư nhân/Hộ kinh doanh",
+      "Value": "ST Gov"
+    },
+    {
+      "Display": "Liên danh/ Nước ngoài",
+      "Value": "Trust"
+    }
+  ],
+  "LabourContractType": [                         //Loại hình hợp đồng
+    {
+      "Display": ">= 1 năm",
+      "Value": "Bằng hoặc lớn hơn 1 năm - Equal or more than 1 year"
+    },
+    {
+      "Display": "Học việc/thử việc",
+      "Value": "Hợp đồng thử việc hoặc học việc - Temporary"
+    },
+    {
+      "Display": "KD tại nhà người thân",
+      "Value": "KD tại nhà người thân"
+    },
+    {
+      "Display": "KD tại nhà sở hữu",
+      "Value": "KD tại nhà sở hữu"
+    },
+    {
+      "Display": "KD tại nhà-mặt bằng thuê",
+      "Value": "KD tại nhà-mặt bằng thuê"
+    },
+    {
+      "Display": "KD tại sạp chợ thuê-sở hữu",
+      "Value": "KD tại sạp chợ thuê-sở hữu"
+    },
+    {
+      "Display": "Không xác định thời hạn",
+      "Value": "Không xác định thời hạn - Permanent"
+    },
+    {
+      "Display": "Dưới 1 năm",
+      "Value": "Nhỏ hơn 1 năm - Under 1 year"
+    }
+  ],
+  "Education": [                          //Trình độ học vấn
+    {
+      "Display": "Đại học",
+      "Value": "GRADUATION"
+    },
+    {
+      "Display": "THPT",
+      "Value": "HSC"
+    },
+    {
+      "Display": "Cao đẳng",
+      "Value": "PHD"
+    },
+    {
+      "Display": "Sau Đại Học",
+      "Value": "POST-GRADUATION"
+    },
+    {
+      "Display": "Trung cấp",
+      "Value": "Primary"
+    },
+    {
+      "Display": "Trung học cơ sở",
+      "Value": "SSC"
+    }
+  ],
+  "MaritalStatus": [                          //Trình độ hôn nhân
+    {
+      "Display": "Ly hôn",
+      "Value": "Divorced"
+    },
+    {
+      "Display": "Đã kết hôn",
+      "Value": "Married"
+    },
+    {
+      "Display": "Khác",
+      "Value": "other"
+    },
+    {
+      "Display": "Độc thân",
+      "Value": "Single"
+    }
+  ],
+  "HouseType": [                        //Loại nhà ở hiện tại
+    {
+      "Display": "Nhà mua trả góp",
+      "Value": "LEASEHOLD"
+    },
+    {
+      "Display": "Khác",
+      "Value": "Other"
+    },
+    {
+      "Display": "Nhà bố mẹ",
+      "Value": "PARENTAL"
+    },
+    {
+      "Display": "Nhà thuê",
+      "Value": "RENTED"
+    },
+    {
+      "Display": "Nhà riêng",
+      "Value": "SELF"
+    }
+  ],
+  "IncomeType": [                     //Hình thức nhận lương
+    {
+      "Display": "Tài khoản ngân hàng",
+      "Value": "Lương chuyển khoản ngân hàng có BHXH - Bank transfer salary with Insurance"
+    },
+    {
+      "Display": "Lương chuyển khoản ngân hàng không BHXH - Bank transfer salary without Insurance",
+      "Value": "Lương chuyển khoản ngân hàng không BHXH - Bank transfer salary without Insurance"
+    },
+    {
+      "Display": "Tiền mặt",
+      "Value": "Lương cố định bằng tiền mặt - Fixed cash salary"
+    },
+    {
+      "Display": "Lương tiền mặt có BHXH - Cash salary with Insurance",
+      "Value": "Lương tiền mặt có BHXH - Cash salary with Insurance"
+    },
+    {
+      "Display": "Lương tiền mặt không BHXH - Cash salary without Insurance",
+      "Value": "Lương tiền mặt không BHXH - Cash salary without Insurance"
+    },
+    {
+      "Display": "Tự hoạt động kinh doanh – Self-employed income",
+      "Value": "Tự hoạt động kinh doanh – Self-employed income"
+    }
+  ],
+  "SourceIncome": [                         //Loại hình thu nhập
+    {
+      "Display": "Tự kinh doanh",
+      "Value": "TUDOANH"
+    },
+    {
+      "Display": "Lao động tự do",
+      "Value": "TUDO"
+    },
+    {
+      "Display": "Thu nhập từ lương & cung cấp sao kê lương",
+      "Value": "LUONGSAOKE"
+    },
+    {
+      "Display": "TThu nhập từ lương & KHÔNG cung cấp sao kê lương",
+      "Value": "LUONGKHONGSAOKE"
+    }
+  ]
+}
+```

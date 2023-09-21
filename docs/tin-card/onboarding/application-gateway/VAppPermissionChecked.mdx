@@ -1,3 +1,48 @@
 ---
 title: VAppPermissionChecked
+description: Update trạng thái đồng ý trên popup consent gitgam
 ---
+
+Update trạng thái đồng ý trên popup consent gitgam
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name  | Data Type | Required | Description                                                                                                              |
+| ----- | ----------- | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 2     | PhoneNumber | String    | M        | Số đt của KH                                                                                                             |
+| 2     | AcceptType  | String    | M        | Nếu dùng cho gitgam thì truyền giá trị là <b style={{color: "#5b86c7",}}>SCHOOL_PERMISSION</b>                           |
+| 2     | IsChecked   | bool      | M        | Trạng thái đã đồng ý popup consent hay chưa<br/> - IsChecked = true là đã đồng ý<br/> - IsChecked = false là chưa đồng ý |
+| 2     | Channel     | String    | M        | Nguồn update trạng thái đồng ý trên popup consent gitgam<br/> - Nếu kênh truyền là TINAPP thì truyền Channel là TINAPP   |
+
+```javascript
+var data = {
+  PhoneNumber: "0987798128",
+  AcceptType: "SCHOOL_PERMISSION",
+  IsChecked: true,
+  Channel: "TINAPP",
+};
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+`None`

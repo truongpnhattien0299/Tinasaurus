@@ -1,3 +1,120 @@
 ---
 title: ChipIDDataSave
+description: Đọc thông tin từ CCCD chip
 ---
+
+Đọc thông tin từ CCCD chip
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name             | Data Type     | Required | Description                                          |
+| ----- | ---------------------- | ------------- | -------- | ---------------------------------------------------- |
+| 2     | IDNumber               | String (20)   | M        | Số CCCD                                              |
+| 2     | FullName               | String (MAX)  | O        | Họ và Tên                                            |
+| 2     | DateOfBirth            | String (20)   | M        | Ngày tháng năm sinh                                  |
+| 2     | Gender                 | String (10)   | M        | Giới tính                                            |
+| 2     | Nationality            | String (50)   | O        | Quốc tịch                                            |
+| 2     | Ethnic                 | String (50)   | O        | Dân tộc                                              |
+| 2     | Religion               | String (50)   | O        | Tôn giáo                                             |
+| 2     | PlaceOfOrigin          | String (250)  | O        | Quê quán                                             |
+| 2     | PlaceOfResidence       | String (250)  | O        | Nơi thường trú                                       |
+| 2     | DateOfExpiry           | String (20)   | M        | Ngày hết hạn thẻ chip                                |
+| 2     | PersonalIdentification | String (250)  | O        | Nhận dạng                                            |
+| 2     | DateOfIssuance         | String (20)   | O        | Ngày cấp CCCD                                        |
+| 2     | ParentName             | String (250)  | O        | Tên cha / mẹ                                         |
+| 2     | SpouseName             | String (250)  | O        | Tên vợ / chồng                                       |
+| 2     | LoanApplicationID      | String (100)  | M        | Mã hồ sơ vay của khách hàng                          |
+| 2     | OldIDNumber            | String (20)   | O        | Số CMND cũ                                           |
+| 2     | ChipID                 | String (50)   | M        | Mã chip                                              |
+| 2     | SOD                    | String (MAX)  | M        | Thông tin SOD                                        |
+| 2     | PortraitImage          | String (500)  | O        | Ảnh trên thẻ CCCD                                    |
+| 2     | COM                    | String (250)  | O        | Thông tin COM                                        |
+| 2     | DG1                    | String (250)  | M        | Thông tin DG1                                        |
+| 2     | DG2                    | String (MAX)  | O        | Thông tin DG2                                        |
+| 2     | DG2Raw                 | String (MAX)  | M        | Thông tin DG2Raw                                     |
+| 2     | DG13                   | String (2000) | O        | Thông tin DG13                                       |
+| 2     | DG14                   | String (2500) | O        | Thông tin DG14                                       |
+| 2     | DG15                   | String (100)  | O        | Thông tin DG15                                       |
+| 2     | IsChipClone            | bit           | M        | Thông tin chip giả (Chip có bị sao chép hay không)   |
+| 2     | IsVerifyChipHash       | bit           | M        | Thông tin chip toàn vẹn (Chip có toàn vẹn hay không) |
+| 2     | AttemptTap             | int           | O        | Số lần quét thẻ CCCD                                 |
+| 2     | DeviceID               | String (100)  | O        | Mã thiết bị                                          |
+| 2     | DeviceOSVersion        | String (50)   | O        | Phiên bản hệ điều hành                               |
+| 2     | DeviceModel            | String (100)  | O        | Tên thiết bị                                         |
+| 2     | ErrorMessage           | String (MAX)  | O        | Mã lỗi trên app ommi                                 |
+| 2     | PhoneNumber            | String (MAX)  | M        | Số điện thoại                                        |
+| 2     | OCRDataRaw             | String        | M        | Parse object of OCR model to json string             |
+| 2     | QRCodeRaw              | String        | M        | Parse object of QRCode model to json string          |
+
+```javascript
+var data = {
+    "IDNumber": "079101000308",
+    "FullName": "Nguyễn Bích Yên",
+    "DateOfBirth": "10/10/2001",
+    "Gender": "Nữ",
+    "Nationality": "Việt Nam",
+    "Ethnic": "Kinh",
+    "Religion": "Không",
+    "PlaceOfOrigin": "234/33 Lê Văn Sỹ, phường 09, quận 03, TP. HCM",
+    "PlaceOfResidence": "234/33 Lê Văn Sỹ, phường 09, quận 03, TP. HCM",
+    "DateOfExpiry": "10/10/2026",
+    "PersonalIdentification": "Sẹo 0.3cm trên sau cánh mũi phải",
+    "DateOfIssuance": "18/08/2021",
+    "ParentName": "SẮC VĂN SẢO/LUNG THỊ LINH",
+    "SpouseName": "Phùng Thanh Khiết",
+    "LoanApplicationID": "db698e65-5111-417e-8119-6b03dfa4901c",
+    "OldIDNumber": "",
+    "ChipID": "02946E6739050000",
+    "SOD": "d4IG5jCCBuIGCSqGSIb3DQEHAqCCBtMwggbPAgEDM",
+    "PortraitImage": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/Application/UAT/Documents/Image_20230510_2078b057294d42cabae20428bfaa6751.jpg",
+    "COM": "COM",
+    "DG1": "DG1",
+    "DG2": "DG2",
+    "DG2Raw": "DG2Raw",
+    "DG13": "DG13",
+    "DG14": "DG14",
+    "DG15": "DG15",
+    "IsChipClone":0,
+    "IsVerifyChipHash": 1,
+    "AttemptTap": 1,
+    "DeviceID": "87E3DAF3-B15C-4858-87B0-51191A81AF15",
+    "DeviceOSVersion": "iOS 16.2",
+    "DeviceModel": "iPhone iPhone14,3 (Real Device)",
+    "ErrorMessage": "IOS Success - ",
+    "PhoneNumber":"0989000308",
+    "OCRDataRaw":"{\"card_type\":\"id_2021\",\"id\":\"079101000308\",\"id_score\":0.9595770835876465,\"name\":\"NGUYỄNBÍCHYÊN\",\"name_score\":0.9999910593032837,\"birthday\":\"10-10-2001\",\"birthday_score\":0.9998964071273804,\"sex\":\"Nữ\",\"sex_score\":0.9999322891235352,\"nationality\":\"ViệtNam\",\"nationality_score\":0.9998540580272675,\"hometown\":\"234/33LêVănSỹ,P9,Quận3,TPHồChíMinh\",\"hometown_score\":0.9999360501766205,\"address\":\"234/33LêVănSỹ,P9,Quận3,TPHồChíMinh\",\"address_score\":0.9998131334781647,\"expiry\":\"10-10-2026\",\"expiry_score\":0.9998981952667236,\"ethnic\":\"N/A\",\"religion\":\"N/A\",\"issue_date\":\"18-08-2021\",\"issue_date_score\":0.9985219240188599,\"issue_authority\":\"CỤCTRƯỞNGCỤCCẢNHSÁTQUẢNLÝHÀNHCHÍNHVỀTRẬTTỰXÃHỘI\",\"issue_authority_score\":0.9593485423496791,\"characteristic\":\"Sẹo0.3cmtrênsaucánhmũiphải\",\"characteristic_score\":0.9999829019818988,\"mrz\":{\"file\":\"image.png\",\"card_type\":\"id_2021\",\"document_type\":\"OV\",\"country_code\":\"NNI\",\"country_code_uncertain\":true,\"name\":\"NGUYENBCHYEN\",\"document_number\":\"010003080\",\"document_number_uncertain\":false,\"custom_country_id\":\"79101000308<\",\"nationality\":\"VNN\",\"nationality_uncertain\":true,\"birth_date\":\"011010\",\"birth_date_uncertain\":true,\"sex\":\"N\",\"sex_uncertain\":true,\"expiry_date\":\"2G1010\",\"expiry_date_uncertain\":true,\"uncertain\":true,\"final_hash\":false}}",
+    "QRCodeRaw":"{\"messenger\":\"087096008070|341771187|VõVănHoàng|12101996|Nam|Tổ8,ẤpThiSơn,TânThànhA,TânHồng,ĐồngTháp|09082021\",\"error\":\"NONE\",\"mask\":\"M101\",\"Errorlevel\":\"M\",\"mode\":\"MIXED\"}"
+}
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+| Level | Field Name   | Data Type | Required | Description                                 |
+| ----- | ------------ | --------- | -------- | ------------------------------------------- |
+| 1     | IsVerifyChip | boolean   | M        | Kết quả chip thật giả trả về từ bộ công an. |
+
+```json
+{
+  "IsVerifyChip": false
+}
+```

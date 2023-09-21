@@ -1,3 +1,70 @@
 ---
 title: CollectingUploadFile
+description: Upload ảnh liveness dạng binary => url s3
+tags:
+  - call in
 ---
+
+Upload ảnh liveness dạng binary => url s3
+
+## Body (form-data)
+
+| Level | Field Name              | Data Type  | Required | Description                                                                    |
+| ----- | ----------------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | FileName (Video/ Image) | File       | M        | Content of Image/Video (.jpg, .avi, .mp4,…)                                    |
+| 1     | RequestID               | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime         | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function                | String     | M        | Trùng với tên API                                                              |
+| 1     | Data                    | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data Content of request
+
+```javascript
+var data = {
+  "Days": 3, // option default = 7
+  "IsUsePublic": true // option default false
+}
+
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+| Level | Field Name   | Data Type | Required | Description                                 |
+| ----- | ------------ | --------- | -------- | ------------------------------------------- |
+| 1     | IsVerifyChip | boolean   | M        | Kết quả chip thật giả trả về từ bộ công an. |
+
+```json
+[
+  {
+    "FileName": "Video",
+    "Path": [
+      "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/Application/UAT/Documents/Video_20230314_b41bf41a58094452a1d7aea96023b7b6.mp4"
+    ],
+    "PathPublic": [
+      "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/Application/UAT/Documents/Video_20230314_b41bf41a58094452a1d7aea96023b7b6.mp4?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230314/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230314T094637Z&X-Amz-SignedHeaders=host&X-Amz-Signature=3dff400b8a81780f962cfb6171f56775e9118efae0a8503358bfa1afccfecefb"
+    ]
+  },
+  {
+    "FileName": "Image",
+    "Path": [
+      "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/Application/UAT/Documents/Image_20230314_d4ba83c253554e6aa0b374c13585805e.PNG",
+      "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/Application/UAT/Documents/Image_20230314_c64dd2d242b44309bb33e6baa4c887c3.PNG"
+    ],
+    "PathPublic": [
+      "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/Application/UAT/Documents/Image_20230314_d4ba83c253554e6aa0b374c13585805e.PNG?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230314/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230314T094637Z&X-Amz-SignedHeaders=host&X-Amz-Signature=2b9d793b5228dde6a1d6eb044386bf06b6cada3785ad5759a7e966a388c36505",
+      "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/Application/UAT/Documents/Image_20230314_c64dd2d242b44309bb33e6baa4c887c3.PNG?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230314/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230314T094637Z&X-Amz-SignedHeaders=host&X-Amz-Signature=836a83a28627bae487a0f4ca4c9a0e6e56a82cc2291581e633f904c139a01cdc"
+    ]
+  }
+]
+```

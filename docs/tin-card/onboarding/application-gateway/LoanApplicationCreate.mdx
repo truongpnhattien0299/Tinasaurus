@@ -1,3 +1,95 @@
 ---
 title: LoanApplicationCreate
+description: Khởi tạo hồ sơ vay sau bước OCR và NFC
+tags:
+  - call in
 ---
+
+Khởi tạo hồ sơ vay sau bước OCR và NFC
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name         | Data Type  | Required | Description                                                                     |
+| ----- | ------------------ | ---------- | -------- | ------------------------------------------------------------------------------- |
+| 2     | ApplicationGUID    | String(50) | M        | Defaullt Value: "00000000-0000-0000-0000-000000000000"                          |
+| 2     | Source             | String(50) | M        | Omni app                                                                        |
+| 2     | CustomerType       | String     | M        | Trùng với tên API                                                               |
+| 2     | IsSupportNFC       | Boolean    | M        | Loại khách hàng 0 là NormalCustomer 1 là Student                                |
+| 2     | IsRPALink          | Boolean    | M        | Device có support NFC hay ko                                                    |
+| 2     | IsSupportNFC       | Boolean    | M        | Trường đã chọn có RPALink hay ko                                                |
+| 2     | IsCCCDChip         | Boolean    | M        | CCCD có chip hay ko                                                             |
+| 2     | IsDocumentAuto     | Boolean    | M        | Có lấy được document từ SDK Gitgam hay không                                    |
+| 2     | Comment            | String     | M        | Kh có comment gì cho vietcredit không?                                          |
+| 2     | PersonalInfo       | Object     | M        |                                                                                 |
+| 3     | FullName           | String     | M        | Họ và tên                                                                       |
+| 3     | Gender             | String     | M        | Giới tính                                                                       |
+| 3     | BirthDay           | String     | M        | Ngày tháng năm sinh                                                             |
+| 3     | PhoneNumber        | String     | M        | Số điện thoại                                                                   |
+| 3     | Email              | String     | M        | Email khách hàng                                                                |
+| 3     | IdentityNumber     | String     | M        | Số CCCD                                                                         |
+| 3     | OldIdentityNumber  | String     | M        | Số CMND/CCCD cũ                                                                 |
+| 3     | IssueDate          | String     | M        | Ngày cấp (yyyyMMdd)                                                             |
+| 3     | IssuePlace         | String     | M        | Nơi cấp (Truyền name hoặc code) Note: tạm thời truyền cứng code, sẽ update thêm |
+| 3     | MaritalStatus      | String     | O        | Tình trạng hôn nhân                                                             |
+| 3     | Education          | String     | O        | Trình độ học vấn                                                                |
+| 3     | NumberOfDependents | String     | O        | Số người phụ thuộc                                                              |
+| 3     | ResidentHouseType  | String     | O        | Loại nhà ở hiện tại                                                             |
+| 3     | ResidentTimeYear   | String     | O        | Số năm ở chỗ hiện tại                                                           |
+| 3     | ResidentTimeMonth  | String     | O        | Số tháng ở chỗ hiện tại                                                         |
+
+```javascript
+var data = {
+  "ApplicationGUID":"00000000-0000-0000-0000-000000000000",
+  "Source": 3, // Omni app
+  "CustomerType": 1, // 0 is NormalCustomer, 1 is Student
+  "IsSupportNFC": true, //thiết bị có support NFC
+  "IsRPALink": true, //chọn trường có IsRPALink
+  "IsCCCDChip": true, //CCCD có chip hay không?
+  "IsDocumentAuto": true, //có lấy được documnet từ sdk gitgam không?
+  "Comment": "tôi muốn bảo mật thông tin", //kh có comment gì cho vietcredit không?
+  "PersonalInfo": {
+    "FullName": "Huỳnh Hữu Lộc",
+    "Gender": "Male",
+    "BirthDay": 19851125,
+    "PhoneNumber": "0903049925",
+    "IdentityNumber": "051091003528",
+    "OldIdentityNumber": "",
+    "IssueDate": 20181010,
+    "IssuePlace": "79"
+    "MaritalStatus":"Single", //tình trạng hôn nhân
+    "Education":"GRADUATION", //trình độ học vấn
+    "NumberOfDependents": 1, //số người phụ thuộc
+    "ResidentHouseType": "", //loại nhà ở hiện tại
+    "ResidentTimeYear": 1, //số năm ở chỗ ở hiện tại
+    "ResidentTimeMonth": 1,
+  }
+}
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "Data": "{"ApplicationGUID":"9c602fbb5ddd49b99a06bf9b9a42aea9"}"
+}
+```

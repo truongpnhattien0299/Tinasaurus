@@ -1,3 +1,73 @@
 ---
 title: GetLinkUpload (UAT)
+tags:
+  - call in
 ---
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name    | Data Type | Required | Description                     |
+| ----- | ------------- | --------- | -------- | ------------------------------- |
+| 2     | TotalLink     | String    | O        | Số lượng link hình ảnh chứng từ |
+| 2     | ExpireMinutes |           | O        | Thời gian hết hạn của link      |
+
+```javascript
+var data = {
+  TotalLink: "2", // default 1, max 20
+  ExpireMinutes: "5", // default 5, max 20
+};
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Note for mobile
+
+### Status code 403 Forbidden (&lt;Code&gt;SignatureDoesNotMatch&lt;/Code&gt;) => Link bị sai
+
+### Status code 403 Forbidden (&lt;Code&gt;AccessDenied&lt;/Code&gt;) => Link hết hạn
+
+## Data content of response
+
+| Level | Field Name     | Data Type | Required | Description                 |
+| ----- | -------------- | --------- | -------- | --------------------------- |
+| 2     | Id             | int       | M        | Số thứ tự link truyền       |
+| 2     | UploadLink     | String    | M        | Chứa đường dẫn link upload  |
+| 2     | UseLink        | String    | M        | Chứa đường dẫn link sử dụng |
+| 2     | ExpireDateTime | Datetime  | M        | Thời gian hết hạn của link  |
+
+```json
+{
+  "S3UploadData": [
+    {
+      "Id": 1,
+      "UploadLink": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/Application/UAT/Documents//62a29518-9583-4127-a472-c71110f269b5_20230906174129.jpg?X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230906/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230906T104129Z&X-Amz-SignedHeaders=host&X-Amz-Signature=ebe5a4d6aad3ef752c3fa1fb376af1048190e03297fc70ffb6374cac8d6fff6a",
+      "UseLink": "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/Application/UAT/Documents//62a29518-9583-4127-a472-c71110f269b5_20230906174129.jpg",
+      "ExpireDateTime": "\\/Date(1693997189420+0700)\\/"
+    },
+    {
+      "Id": 2,
+      "UploadLink": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/Application/UAT/Documents//1486d116-4684-409d-b1bf-401e70af6042_20230906174129.jpg?X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230906/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230906T104129Z&X-Amz-SignedHeaders=host&X-Amz-Signature=d5c97ced594f81107656fd7004e06f45feff7c4b2bf3a9c2b51122f5b4d0a046",
+      "UseLink": "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/Application/UAT/Documents//1486d116-4684-409d-b1bf-401e70af6042_20230906174129.jpg",
+      "ExpireDateTime": "\\/Date(1693997189420+0700)\\/"
+    }
+  ]
+}
+```

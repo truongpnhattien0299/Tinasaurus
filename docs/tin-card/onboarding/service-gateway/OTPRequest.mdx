@@ -1,3 +1,50 @@
 ---
 title: OTPRequest
+description: Gửi yêu cầu lấy mã OTP
 ---
+
+Gửi yêu cầu lấy mã OTP
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name    | Data Type | Required | Description                                    |
+| ----- | ------------- | --------- | -------- | ---------------------------------------------- |
+| 2     | AccountNumber | Text      | M        | Số tài khoản KH (có thể nhập số điện thoại KH) |
+| 2     | ActionCode    | Text      | M        | Tên chức năng                                  |
+
+```json
+var data = {
+  "AccountNumber": "30000537" // "0901901050",
+  "ActionCode": "CustomerUpdateInfo"
+}
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "TokenCode": "56ad116104d04ba0a6a6d218f046fa01",
+  "OTPTimeOut": "5", //minute
+  "PhoneNumber": "090190****"
+}
+```
