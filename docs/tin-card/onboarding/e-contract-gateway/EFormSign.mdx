@@ -1,3 +1,67 @@
 ---
 title: EFormSign
+description: Ký EForm
+tags:
+  - call in
 ---
+
+Ký EForm <br/>
+(Khi KH tích vào xác nhận và chọn hợp đồng thì gọi API này)
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name | Data Type | Required | Description                                                 |
+| ----- | ---------- | --------- | -------- | ----------------------------------------------------------- |
+| 2     | CIFNumber  | int       | M        | Số CIF của Khách hàng                                       |
+| 2     | EFormCode  |           | M        | Sử dụng mã EFormCode từ response trả về của EFormCreate API |
+| 2     | Location   | object    | M        | Thông tin vị trí khách hàng                                 |
+| 2     | DeviceInfo | object    | M        | Thông tin thiết bị khách hàng                               |
+
+```javascript
+var data = {
+  CIFNumber: CIFNumber,
+  EFormCode: EFormCode,
+  Location: {
+    latitude: 100,
+    longitude: 2.1,
+    geoLocation: "Hà Nội, Việt Nam",
+  },
+  DeviceInfo: {
+    appCodeName: "VC-MB-App",
+    appName: "VietCredit App",
+    appVersion: "1.0.0",
+    language: "vi-vn",
+    deviceType: "Android",
+    deviceId: "12dmlkljvhy12",
+    deviceName: "Samsung S9",
+  },
+};
+```
+
+# Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "NextStep": 6
+}
+```

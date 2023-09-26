@@ -1,3 +1,99 @@
 ---
 title: CRMTicketQuery
+description: Lấy trạng thái Ticket
+tags:
+  - call in
 ---
+
+Lấy trạng thái Ticket
+
+## Danh sách status
+
+| ID  | RequestStatus | CRMStatus         | Note                      |
+| --- | ------------- | ----------------- | ------------------------- |
+| 1   | N00           | Đang thẩm định    |                           |
+| 2   | S02           | Bổ sung thông tin | Cho phép kích hoạt thẻ    |
+| 3   | D03           | Phê duyệt         | Thẻ đã kích hoạt          |
+| 4   | F04           | Từ chối           |                           |
+| 5   | F05           | Từ chối (Tự động) |                           |
+| 6   | Không có data |                   | Cho phép \| Kích hoạt thẻ |
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name | Data Type | Required | Description   |
+| ----- | ---------- | --------- | -------- | ------------- |
+| 1     | CIFNumber  | String    | M        | Số CIF của KH |
+
+```javascript
+var data = { CIFNumber: "861797" };
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "TicketID": 1064,
+  "CIFNumber": "1602231702",
+  "RequestStatus": "N00",
+  "CRMStatus": "Ðang thẩm định",
+  "DateTimeCreate": 20230222103439,
+  "DateTimeModify": 20230222103439,
+  "DateTimeSync": 0,
+  "Note": "",
+  "IsHasEContract": false,
+  "Documents": [
+    {
+      "DocumentType": "Customer",
+      "DocumentURL": "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/EContract/Tickets/1602231702_Customer_bef1dd7e7ef5448a98f5cae16cb21e99.jpg",
+      "SortOrder": 0
+    },
+    {
+      "DocumentType": "Contract",
+      "DocumentURL": "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/EContract/Tickets/1602231702_Contract_f6923b7918ad44c0a9a0ac842f7abdb6.jpg",
+      "SortOrder": 1
+    },
+    {
+      "DocumentType": "Contract",
+      "DocumentURL": "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/EContract/Tickets/1602231702_Contract_53400d1d51d54cea93181a0e5625f9c1.jpg",
+      "SortOrder": 2
+    },
+    {
+      "DocumentType": "Contract",
+      "DocumentURL": "https://s3-ap-southeast-1.amazonaws.com/vcasprivate/EContract/Tickets/1602231702_Contract_16a4a36c43b8451a9018a9b3d6b95af8.jpg",
+      "SortOrder": 3
+    }
+  ],
+  "IsLivenessCheck": true,
+  "LivenessCheckRequestID": "e904396a-acc8-42f8-ad1c-b37f1a02fb03",
+  "LivenessCheckType": "PASSIVE",
+  "DeviceID": "e8747cb856a9b40d",
+  "Latitude": "10.7997393",
+  "Longitude": "106.7051396",
+  "IsMockLocation": false,
+  "IsJailBroken": false,
+  "Rating": 0,
+  "TicketType": "E-ACTIVE",
+  "IsRejectedSameDeviceID": false,
+  "CurrentAddress": "195 Ðiện Biên Phủ, Bình Thạnh, Thành phố Hồ Chí Minh, Việt Nam"
+}
+```

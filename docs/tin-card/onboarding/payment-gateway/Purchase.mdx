@@ -1,3 +1,87 @@
 ---
 title: Purchase
+description: API yêu cầu hạch toán
 ---
+
+API yêu cầu hạch toán
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name           | Data Type     | Required | Description                      |
+| ----- | -------------------- | ------------- | -------- | -------------------------------- |
+| 1     | AccountNumber        | String        | M        | Số CIF của Khách hàng            |
+| 1     | Amount               | String        | M        | Số tiền thanh toán               |
+| 1     | CurrencyCode         | String        | M        | Mã tiền tệ                       |
+| 1     | TransactionReference | String        | M        | Giao dịch tham chiếu             |
+| 1     | IPAddress            | String        | O        | Địa chỉ IP                       |
+| 1     | SellPoint            | String        | O        | Điểm bán                         |
+| 1     | SellPointCode        | String        | O        | Mã điểm bán                      |
+| 1     | CreateDate           | String        | M        | Ngày tạo                         |
+| 1     | Command              | String        | O        | Ghi chú                          |
+| 1     | PaymentType          | String        | M        | Loại thanh toán                  |
+| 1     | TerminalCode         | String        | M        | Mã loại giao dịch                |
+| 1     | PaymentDate          | String        | M        | Ngày thanh toán                  |
+| 1     | TraceId              | varchar(6)    | M        | Mã trace, không trùng trong ngày |
+| 1     | QRType               | varchar(2)    | M        | Số loại QR                       |
+| 1     | InvoiceNumber        | varchar(50)   | M        | Số hóa đơn                       |
+| 1     | OnUsFee              | Decimal       | O        | VietCredit fee                   |
+| 1     | OffUsFee             | Decimal       | O        | VNPay fee                        |
+| 1     | AdditionalNumber1    | Decimal       | O        | Future us                        |
+| 1     | AdditionalNumber2    | Decimal       | O        | Future us                        |
+| 1     | AdditionalString1    | Nvarchar(250) | O        | Future us                        |
+| 1     | AdditionalString2    | Nvarchar(250) | O        | Future us                        |
+
+```javascript
+var data = {
+  AccountNumber: "30001730",
+  Amount: "10000",
+  CurrencyCode: "VND",
+  TransactionReference: "7ebbe1c969b04360b9bd81c41b0a8b70",
+  IPAddress: "123456",
+  PurchaseFor: "PHUCLONG",
+  SellPoint: "ABCDPL",
+  SellPointCode: "PL123",
+  CreateDate: "20230327134911",
+  Command: "THANH TOAN GACH NO VIETCREDIT Account 30000054 TRANG NGOC YEN VY",
+  PaymentType: "VNPAY",
+  TerminalCode: "OMNI_APP_QR",
+  PaymentDate: "20230327134911",
+  TraceId: "123458",
+  QRType: "70", // "QRType":""
+  InvoiceNumber: "54357", // "InvoiceNumber":""
+  OnUsFee: "10000",
+  OffUsFee: "10000",
+  AdditionalNumber1: "",
+  AdditionalNumber2: "",
+  AdditionalString1: "",
+  AdditionalString2: "",
+};
+```
+
+# Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "AuthId": "506713"
+}
+```

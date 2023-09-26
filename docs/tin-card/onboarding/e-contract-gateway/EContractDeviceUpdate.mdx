@@ -1,3 +1,85 @@
 ---
 title: EContractDeviceUpdate
+description: Cập nhật thiết bị
+tags:
+  - call in
 ---
+
+Cập nhật thiết bị
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name  | Data Type | Required | Description                 |
+| ----- | ----------- | --------- | -------- | --------------------------- |
+| 2     | CIFNumber   | int       | M        | Số CIF của Khách hàng       |
+| 2     | Location    | Object    | M        | Thông tin vị trí khách hàng |
+| 3     | latitude    |           |          | Kinh độ                     |
+| 3     | longtitude  |           |          | Vĩ độ                       |
+| 3     | geoLocation |           |          | Vị trí trên bản đồ          |
+| 3     | DeviceInfo  | Object    | M        | Thông tin thiết bị          |
+| 3     | appCodeName |           |          | Mã code app                 |
+| 3     | appName     |           |          | Tên app                     |
+| 3     | appVersion  |           |          | Phiên bản app               |
+| 3     | language    |           |          | Ngôn ngữ                    |
+| 3     | deviceType  |           |          | Loại thiết bị               |
+| 3     | deviceId    |           |          | Mã thiết bị                 |
+| 3     | deviceName  |           |          | Tên thiết bị                |
+
+```javascript
+var data = {
+  CIFNumber: "861366",
+  Location: {
+    latitude: 100,
+    longitude: 9.55,
+    geoLocation: "Hà Nội, Việt Nam",
+  },
+  DeviceInfo: {
+    appCodeName: "VC-MB-App",
+    appName: "VietCredit App",
+    appVersion: "2.0.0",
+    language: "vi-vn",
+    deviceType: "iphone",
+    deviceId: "12dmlkljvhy12",
+    deviceName: "ios 13",
+  },
+};
+```
+
+# Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "EContractCode": "VC_DDNPHVSDTV_SV-1835274677",
+  "EContractStatus": 0,
+  "StateDescription": "",
+  "SignExpireDateTime": 20330316174546,
+  "EFormCode": "",
+  "EFormStatus": 0,
+  "EFormFilePreview": "",
+  "EFormImagePreview": "",
+  "IsContractSigned": false,
+  "IsContractFinish": false,
+  "CardEffectiveTime": "36 tháng",
+  "NextStep": 6
+}
+```

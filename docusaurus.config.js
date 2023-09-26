@@ -1,5 +1,5 @@
 const docusaurusData = require("./config/docusaurus/index.json");
-
+require("dotenv").config();
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
@@ -85,7 +85,7 @@ const formatNavbarItem = (item, subnav = false) => {
 
   return navItem;
 };
-
+console.log({ baseUrl });
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: docusaurusData.title || "My Site",
@@ -122,7 +122,7 @@ const config = {
       }),
     ],
   ],
-
+  // themes: ["@docusaurus/theme-search-algolia"],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({

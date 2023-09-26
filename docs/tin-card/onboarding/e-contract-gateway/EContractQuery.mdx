@@ -1,3 +1,115 @@
 ---
 title: EContractQuery
+description: Lấy thông tin hợp đồng điện tử
+tags:
+  - call in
 ---
+
+-Lấy thông tin hợp đồng điện tử.<br/>
+(Khi Khách hàng bấm vào Nút "Ký hợp đồng điện tử" thì hệ thống gọi API này.)
+
+| Step | Step Description     | Summary Name          | Summary Description                                                                                         | State          | EContractStatus | EFormStatus | NextStep    |
+| ---- | -------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------- | -------------- | --------------- | ----------- | ----------- |
+| 0    | HĐ mới tạo           | Draft                 |                                                                                                             | VC_CHOKH_KY    | 0               |             | 2           |
+| 1    | HĐ hoàn tất          | Done                  | Both VC and customer signed                                                                                 | NULL           | 3               |             | STOP        |
+| 2    | Chờ KH ký HĐ         | EContractInProcess    | Wait for customer sign                                                                                      | VC_CHOKH_KY    | 1               |             | 3           |
+| 3    | Chờ KH ký Eform      | EFormCreate           | Customer has created eForm                                                                                  |                | 1               | 1           | 4           |
+| 4    | KH đã ký Eform       | EFormSign             | Customer has signed eForm                                                                                   |                | 1               | 3           | 6           |
+| 5    | HĐ hết hạn ký        | EContractSignExpire   | Customer have default 3 days to sign (update to VCApprove) before it expire (update to EContractSignExpire) | VC_CHOKH_KY    | 1               |             |             |
+| 6    | KH đã yêu cầu ký     | EContractRequestSign  | Customer request OTP for sign contract                                                                      |                | 1               |             | 8           |
+| 7    | KH từ chối ký        | EContractRejectSign   | Customer reject sign contract                                                                               | VC_CHOKH_KY    | 2               |             | STOP        |
+| 8    | KH xác nhận ký       | EContractConfirmSign  | Customer confirm OTP to sign contract                                                                       |                | 1               |             | 11          |
+| 9    | KH đã ký             | EContractCompleteSign | Customer sign completed, wait for appraiser approve                                                         | VC_CHOTHAMDINH | 1               |             | 14          |
+| 10   | VC từ chối phê duyệt | VCReject              | Appraiser reject contract                                                                                   | VC_CHOTHAMDINH | 2               |             | STOP        |
+| 11   | Chờ VC ký            | VCApprove             | Customer has signed and wait for Appraiser approve contract                                                 | VC_CHOTHAMDINH | 1               |             | AUTO SYSTEM |
+| 12   | HĐ hết hạn bổ sung   | VCSignExpire          | Appraiser have default 2 days to approve (update to VCApprove) before it expire (update to VCExpire)        | VC_CHOTHAMDINH | 1               |             |             |
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name | Data Type | Required | Description            |
+| ----- | ---------- | --------- | -------- | ---------------------- |
+| 2     | CIFNumber  | String    | M        | Số CIF của KH trên CMS |
+
+```javascript
+var data = { CIFNumber: "CIFNumber" };
+```
+
+# Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "EContractCode": "VC_DDNPHVSDTV_SV-1834100669",
+  "EContractStatus": 1,
+  "EContractStatusDescription": "Chờ thẩm định",
+  "EContractFilePreview": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/EContract/861366_EContract_file.pdf?X-Amz-Expires=86400&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230316/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230316T024324Z&X-Amz-SignedHeaders=host&X-Amz-Signature=8b0541dff65f6e0f27824e690d56723668b47b3cd57240f028d126369a679045",
+  "EContractImagePreview": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/EContract/861366_EContract_image.jpg?X-Amz-Expires=86400&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230316/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230316T024324Z&X-Amz-SignedHeaders=host&X-Amz-Signature=c0e1d8c39988bdf6c45b3dd8432b12974c4db069f06dec6a0e9d64eeb88ef767",
+  "FileUrl": "http://172.27.6.87:8280/cdn/v1/bn-vc/3/2023/3/10/VC_DDNPHVSDTV_SV-1834100669/3.3_861366.VC_DDNPHVSDTV_SV1834100669_23031010093637_23031010235126.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minio%2F20230316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230316T024324Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=56bc1cf5cc6db1cebf818bd3cf5e06ea1cd4dc09f6f2ca083f9a8279914f128f",
+  "State": "VC_CHOTHAMDINH",
+  "StateDescription": "Chờ trung tâm thẩm định duyệt",
+  "StepDescription": "KH đã ký",
+  "SignExpireDateTime": 20330316094324,
+  "EFormCode": "DDNSDCKDTAT-0498621787",
+  "EFormStatus": 3,
+  "EFormFilePreview": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/VietCreditAppV2/UAT/avatar/861366_EForm_file.pdf?X-Amz-Expires=86400&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230316/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230316T024324Z&X-Amz-SignedHeaders=host&X-Amz-Signature=5ebbdecba22609f2d71f7e904d365a74d2d3c48640272b02f94a55724d706353",
+  "EFormImagePreview": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/VietCreditAppV2/UAT/avatar/861366_EForm_image.jpg?X-Amz-Expires=86400&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230316/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230316T024324Z&X-Amz-SignedHeaders=host&X-Amz-Signature=957eda5a83c6117c31c5fcc0af9064e33859c8d7a9012e750cbd9ca54c1b7da5",
+  "CustomerDevice": {
+    "CustomerDeviceID": 406,
+    "CIFNumber": "861366",
+    "TraceID": "3bcd67e2-d697-44a1-91f4-7703dce129c4",
+    "AppCodeName": "VC-MB-App",
+    "AppName": "VietCredit App",
+    "AppVersion": "2.0.0",
+    "Language": "vi-vn",
+    "DeviceType": "iphone",
+    "DeviceId": "12dmlkljvhy12",
+    "DeviceName": "ios 13",
+    "Latitude": 100.0,
+    "Longitude": 9.55,
+    "GeoLocation": "Hà Nội, Việt Nam",
+    "DateTimeCreate": 20230310102327,
+    "DateTimeModify": 20230310102327
+  },
+  "IsContractSigned": true,
+  "IsContractFinish": false,
+  "DateTimeCreate": "24/06/2022",
+  "ApplicationNumber": "APPL00857054",
+  "CIFNumber": "861366",
+  "AccountNumber": "30001035",
+  "FullName": "QUACH TINH",
+  "IdentityNumber": "370985125",
+  "BirthDay": "24/06/2003",
+  "PhoneNumber": "0989600335",
+  "Email": "",
+  "Gender": "Nam",
+  "EmbossingName": "QUACH TINH",
+  "CardTypeCode": "SVCARD",
+  "CardEffectiveTime": "36 tháng",
+  "CardTypeName": "THE VAY SINH VIEN",
+  "CardMark": "970460******7463",
+  "PaymentDay": "Ngày 9 hàng tháng",
+  "CreditLimit": "5,000,000 VND",
+  "EmbossedCardInfo": "",
+  "NextStep": 14,
+  "Step": 9
+}
+```

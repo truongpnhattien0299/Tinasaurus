@@ -3,6 +3,7 @@ import { defineConfig, TextField } from "tinacms";
 import { ReferenceField } from "tinacms";
 import { FeaturesBlockTemplate } from "../src/components/Features/template";
 import { HeroBlockTemplate } from "../src/components/Hero/template";
+import { SlideImageBlockTemplate } from "../src/components/SlideImage/template";
 import { MDXTemplates } from "../src/theme/template";
 import { docusaurusDate, titleFromSlug } from "../util";
 import title from "title";
@@ -787,7 +788,11 @@ const HomepageCollection = {
       list: true,
       name: "blocks",
       label: "Blocks",
-      templates: [HeroBlockTemplate, FeaturesBlockTemplate],
+      templates: [
+        HeroBlockTemplate,
+        FeaturesBlockTemplate,
+        SlideImageBlockTemplate,
+      ],
     },
   ],
 };
@@ -822,7 +827,7 @@ const PagesCollection = {
 
 export default defineConfig({
   branch,
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, // Get this from tina.io
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "", // Get this from tina.io
   token: process.env.TINA_TOKEN, // Get this from tina.io
   build: {
     outputFolder: "admin",

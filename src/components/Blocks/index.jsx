@@ -1,5 +1,6 @@
 import React from "react";
 import { Features } from "../Features";
+import { SlideImage } from "../SlideImage";
 import { Hero } from "../Hero";
 
 export const Blocks = ({ blocks }) => {
@@ -18,6 +19,13 @@ export const Blocks = ({ blocks }) => {
                 return (
                   <div data-tinafield={`blocks.${i}`} key={i + block._template}>
                     <Features data={block} index={i} />
+                  </div>
+                );
+              case "slideImage":
+                console.log({ block });
+                return (
+                  <div data-tinafield={`blocks.${i}`} key={i + block._template}>
+                    <SlideImage data={block} index={i} />
                   </div>
                 );
               default:

@@ -1,3 +1,107 @@
 ---
 title: CRMActiveVirtualActiveOmni
+description: Kích hoạt thẻ
+tags:
+  - call in
 ---
+
+Kích hoạt thẻ
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name        | Data Type | Required | Description         |
+| ----- | ----------------- | --------- | -------- | ------------------- |
+| 2     | PhoneNumber       | String    | M        | Số điện thoại       |
+| 2     | CIFNumber         | String    | M        | Số CIF của KH       |
+| 2     | AccountNumber     | String    | M        | Số tài khoản của KH |
+| 2     | ApplicationNumber | String    | M        | Số hồ sơ vay        |
+
+```javascript
+var data = {
+  PhoneNumber: "0944444444",
+  CIFNumber: "881558",
+  AccountNumber: "30004211",
+  ApplicationNumber: "APPL018583452",
+};
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+| ID  | Code | Means                      |
+| --- | ---- | -------------------------- |
+| 1   | 000  | SUCCESS                    |
+| 2   | 001  | SCORE_LESS_THAN_85_PERCENT |
+| 3   | 002  | SCORE_85_PERCENT_ERROR     |
+| 4   | 003  | VERIFY_FACE_FAIL           |
+
+:::danger Lỗi faceverify
+
+```json
+{
+  "RequestID": "18c659fb-986b-461e-cdfc-cef8d2784b26",
+  "Function": "CRMActiveVirtualActiveOmni",
+  "ResponseCode": "200",
+  "ResponseDateTime": "20230419212830",
+  "Data": "{\"Code\":\"003\"}",
+  "Description": "Xử lý hồ sơ thất bại!"
+}
+// Dưới 85%
+{
+  "RequestID": "9801f784-5745-46aa-a5e0-9a8eabb2bb10",
+  "Function": "CRMActiveVirtualActiveOmni",
+  "ResponseCode": "200",
+  "ResponseDateTime": "20230413155601",
+  "Data": "{\"Code\":\"001\"}",
+  "Description": "Hồ sơ đang được xử lý"
+}
+// Trên 85%
+// Case 1
+{
+  "RequestID": "9801f784-5745-46aa-a5e0-9a8eabb2bb10",
+  "Function": "CRMActiveVirtualActiveOmni",
+  "ResponseCode": "200",
+  "ResponseDateTime": "20230413155601",
+  "Data": "{\"Code\":\"002\"}",
+  "Description": "Xử lý hồ sơ thất bại!"
+}
+// Case 2
+{
+  "RequestID": "9801f784-5745-46aa-a5e0-9a8eabb2bb10",
+  "Function": "CRMActiveVirtualActiveOmni",
+  "ResponseCode": "200",
+  "ResponseDateTime": "20230413155601",
+  "Data": "{\"Code\":\"000\"}",
+  "Description": "Phê Duyệt"
+}
+// Case 3
+{
+  "RequestID": "9801f784-5745-46aa-a5e0-9a8eabb2bb10",
+  "Function": "CRMActiveVirtualActiveOmni",
+  "ResponseCode": "200",
+  "ResponseDateTime": "20230413155601",
+  "Data": "{\"Code\":\"000\"}",
+  "Description": "Đang thẩm định"
+}
+```
+
+:::

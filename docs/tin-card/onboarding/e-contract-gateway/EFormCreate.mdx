@@ -1,3 +1,51 @@
 ---
 title: EFormCreate
+description: Tạo thông tin Eform khi khách hàng nhấn Ký hợp
+tags:
+  - call in
 ---
+
+Tạo thông tin Eform khi khách hàng nhấn Ký hợp <br/>
+(Khi KH chọn xác nhận hợp đồng thì gọi API này)
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name | Data Type | Required | Description           |
+| ----- | ---------- | --------- | -------- | --------------------- |
+| 2     | CIFNumber  | int       | M        | Số CIF của Khách hàng |
+
+```javascript
+var data = { CIFNumber: "861366" };
+```
+
+# Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "EFormType": "DDNSDCKDTAT",
+  "EFormCode": "DDNSDCKDTAT-0498621787",
+  "EFormStatus": 3,
+  "EFormFilePreview": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/VietCreditAppV2/UAT/avatar/861366_EForm_file.pdf?X-Amz-Expires=86400&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230306/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230306T061744Z&X-Amz-SignedHeaders=host&X-Amz-Signature=608a01ee129074bf7458e30f43bcb59f7795b454832a78ff9106a364f911b7f4",
+  "EFormImagePreview": "https://vcasprivate.s3.ap-southeast-1.amazonaws.com/VietCreditAppV2/UAT/avatar/861366_EForm_image.jpg?X-Amz-Expires=86400&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATQ3K6M7ULMPBU2WW/20230306/ap-southeast-1/s3/aws4_request&X-Amz-Date=20230306T061744Z&X-Amz-SignedHeaders=host&X-Amz-Signature=a196f21a214878ec77c6b2edc53a8dd5671cb4b68abd5b8da69389a3a4865d2d"
+}
+```

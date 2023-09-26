@@ -7,7 +7,8 @@
     },
     {
       "title": "Tin Card",
-      "link": "generated",
+      "link": "doc",
+      "docLink": "docs/tin-card/index.mdx",
       "items": [
         {
           "title": "Onboarding",

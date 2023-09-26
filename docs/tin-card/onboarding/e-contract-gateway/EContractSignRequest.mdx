@@ -1,3 +1,81 @@
 ---
 title: EContractSignRequest
+description: Tạo mã OTP khi ký hợp đồng điện tử
+tags:
+  - call in
 ---
+
+Tạo mã OTP khi ký hợp đồng điện tử<br />
+(Khi KH vẽ chữ ký xong, gọi API upload hình để lấy link S3, sau đó call API này)
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name    | Data Type | Required | Description                                                        |
+| ----- | ------------- | --------- | -------- | ------------------------------------------------------------------ |
+| 2     | CIFNumber     | int       | M        | Số CIF của Khách hàng                                              |
+| 2     | EContractCode | String    | M        | Sử dụng mã EContractCode từ response trả về của EContractQuery API |
+| 2     | SignatureURL  | Text      | M        | URL chữ kí KH                                                      |
+| 2     | deviceInfo    | Text      | M        | Thông tin thiết bị khách hàng                                      |
+| 2     | Location      | Text      | M        | Vị trí                                                             |
+
+```javascript
+var data = {
+  CIFNumber: CIFNumber,
+  EContractCode: EContractCode,
+  Location: {
+    latitude: 100,
+    longitude: 2.1,
+    geoLocation: "Hà Nội, Việt Nam",
+  },
+  DeviceInfo: {
+    appCodeName: "VC-MB-App",
+    appName: "VietCredit App",
+    appVersion: "1.0.0",
+    language: "vi-vn",
+    deviceType: "Android",
+    deviceId: "12dmlkljvhy12",
+    deviceName: "Samsung S9",
+  },
+  SignatureURL:
+    "https://vcasprivate.s3.amazonaws.com/vCAS_UAT/202110/183597834_0768558634_1635304823494.jpg",
+};
+```
+
+# Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "EContractCode": "VC_DDNPHVSDTV_SV-1831106584",
+  "EContractStatus": 0,
+  "StateDescription": "",
+  "SignExpireDateTime": 20330306132741,
+  "EFormCode": "",
+  "EFormStatus": 0,
+  "EFormFilePreview": "",
+  "EFormImagePreview": "",
+  "IsContractSigned": false,
+  "IsContractFinish": false,
+  "CardEffectiveTime": "36 tháng",
+  "NextStep": 8
+}
+```

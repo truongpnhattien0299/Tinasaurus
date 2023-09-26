@@ -1,3 +1,60 @@
 ---
 title: EContractSignRenewOTP
+description: Cấp lại mã OTP
+tags:
+  - call in
 ---
+
+Cấp lại mã OTP<br/>
+(khi OTP hết hạn/ hoặc KH ko nhận dc, KH có thể nhấn nút RESEND để tạo lại OTP mới thì gọi API này)
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name | Data Type | Required | Description           |
+| ----- | ---------- | --------- | -------- | --------------------- |
+| 2     | CIFNumber  | int       | M        | Số CIF của Khách hàng |
+| 2     | OTP        | int       | M        | Mã OTP                |
+
+```javascript
+var data = {
+  CIFNumber: CIFNumber,
+};
+```
+
+# Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "EContractCode": "VC_DDNPHVSDTV_SV-1833608818",
+  "EContractStatus": 0,
+  "StateDescription": "",
+  "SignExpireDateTime": 20330307092212,
+  "EFormCode": "",
+  "EFormStatus": 0,
+  "EFormFilePreview": "",
+  "EFormImagePreview": "",
+  "IsContractSigned": false,
+  "IsContractFinish": false,
+  "CardEffectiveTime": "36 tháng"
+}
+```

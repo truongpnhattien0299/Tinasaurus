@@ -1,3 +1,68 @@
 ---
 title: GetTicketPromotion (UAT)
+description: Get chương trình ưu đãi dành cho KH TINCard
+tags:
+  - call in
 ---
+
+Get chương trình ưu đãi dành cho KH TINCard
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name    | Data Type | Required | Description   |
+| ----- | ------------- | --------- | -------- | ------------- |
+| 2     | AccountNumber | String    | M        | Số CIF của KH |
+| 2     | CampaignName  | String    | M        | Số CIF của KH |
+
+```javascript
+var data = {
+  AccountNumber: "30004699",
+  CampaignName: "Heovang",
+};
+```
+
+## Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+| Level | Field Name       | Data Type | Required | Description                                                                                                                                                                                                                                                                               |
+| ----- | ---------------- | --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2     | AvailableBalance | Number    | M        | Số dư khả dụng hiện tại của KH                                                                                                                                                                                                                                                            |
+| 2     | TotalAmount      | Number    | M        | Tổng số tiền giao dịch thành công của KH trong khoảng thời gian diễn ra chương trình<br/>- Loại GD: Tất cả GD thành công của KH (Không bao gồm giao dịch đã được Revert)<br/>- Thời gian tính tổng các giao dịch là từ Date_from của campaign đến current date và <= Date_to của campaign |
+| 2     | AvailableTicket  | Number    | M        | Số lượng vé/ heo vàng KH săn được.                                                                                                                                                                                                                                                        |
+| 2     | TotalBudget      | Number    | M        | Số tiền budget tương ứng của chương trình                                                                                                                                                                                                                                                 |
+| 2     | TicketPrice      | Number    | M        | Giá trị của một ticket/ Huy hiệu Heo vàng KH có thể đạt được khi chi tiêu                                                                                                                                                                                                                 |
+| 2     | Unit             | Number    | M        | Số lượng ticket/ Huy hiệu Heo vàng cần đạt được để tính ra số Heo vàng                                                                                                                                                                                                                    |
+| 2     | DateFrom         | Date      | M        | Thời gian bắt đầu chương trình                                                                                                                                                                                                                                                            |
+| 2     | DateTo           | Date      | M        | Thời gian kết thúc chương trình                                                                                                                                                                                                                                                           |
+
+```json
+{
+  "AvailableBalance": 1330000,
+  "TotalAmount": 3973000,
+  "AvailableTicket": "7",
+  "TotalBudget": 999999999,
+  "TicketPrice": 200000,
+  "Unit": "5",
+  "DateFrom": "/Date(1688144400000-0000)/",
+  "DateTo": "/Date(1690822800000-0000)/"
+}
+```

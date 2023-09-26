@@ -1,0 +1,437 @@
+---
+title: Tin Card
+description: CẤU TRÚC MESSAGE
+---
+
+export function Quotes() {
+  return "{số dư}";
+}
+
+## Môi trường
+
+| Variable | Value                                            |
+| -------- | ------------------------------------------------ |
+| Link DEV | https://api-dev.vietcredit.com.vn/               |
+| Base     | api/v1/gateway                                   |
+| Port     | 443                                              |
+| Example  | https://api-dev.vietcredit.com.vn/api/v1/gateway |
+
+## Thông tin API
+
+Cấu trúc request
+
+<table>
+  <tr>
+    <th>#</th>
+    <th>Component</th>
+    <th>Param</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <th rowspan="2">Request Header</th>
+    <td>Authorization</td>
+    <td>
+      Authentication for every request Get from field access_token in
+      <br />
+      GetAuthentication API Example: "Bearer
+      REE5QTRDQUVFRUU5NEQ4NUIzNEVFOURGNDQwNTMxNjY6QTdGMzUwRTQ1NzczNDQ1OUEyQzQwQkU1NE"
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Content-Type</td>
+    <td>application/json</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Signature</td>
+    <td>Hash the Data field by using SHA-256 with Salt</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <th>Request Body</th>
+    <td></td>
+    <td>
+    Content of request
+    <br/>
+    <i>Example:</i>
+
+```json
+{
+  "RequestID":"93b75fdb-1b36-4f23-9f62-739e11842deb",
+  "RequestDateTime":"20230308082542",
+  "Function":"CustomerAccountLogin",
+  "Data":"
+    {"UserName":"0911666789",
+    "Password":"9ghPDVqbusri2/idqTqXGw==",
+    "DeviceID":"123456",
+    "DeviceOSVersion":"ios 13.0",
+    "DeviceModel":"iPhone 11"}"
+}
+```
+
+</td>
+</tr>
+</table>
+
+## Response Code Table
+
+<table>
+  <tr>
+    <th>API Name</th>
+    <th>Response Code</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td rowspan="2">GetAuthentication</td>
+    <td>1008</td>
+    <td>Các thông tin client là không đúng</td>
+  </tr>
+  <tr>
+    <td>1013</td>
+    <td>Access token đã hết hạn</td>
+  </tr>
+  <tr>
+    <td>CheckExistCustomer</td>
+    <td>400</td>
+    <td>Số điện thoại không đúng định dạng</td>
+  </tr>
+  <tr>
+    <td>OTPRequest</td>
+    <td>463</td>
+    <td>
+      OTP lock (Mã xác thực đang tạm khóa do yêu cầu nhiều lần liên tiếp. Vui
+      lòng lấy lại mã xác thực sau 30 phút)
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="3">OTPConfirm</td>
+    <td>462</td>
+    <td>OTP expired (Mã xác thực không tồn tại hoặc đã hết hạn)</td>
+  </tr>
+  <tr>
+    <td>460</td>
+    <td>Mã xác thực không chính xác</td>
+  </tr>
+  <tr>
+    <td>461</td>
+    <td>OTP cancel (Mã xác thực đã bị hủy do nhập sai nhiều lần liên tiếp)</td>
+  </tr>
+  <tr>
+    <td>EContractQuery</td>
+    <td>400</td>
+    <td>random from econtract system</td>
+  </tr>
+  <tr>
+    <td>EFormCreate</td>
+    <td>400</td>
+    <td>
+      400: không tìm thấy thông tin hợp đồng <br />
+      400: random from econtract system
+    </td>
+  </tr>
+  <tr>
+    <td>EFormSign</td>
+    <td>400</td>
+    <td>
+      400: Khách hàng đã ký Eform <br />
+      400: random from econtract system
+    </td>
+  </tr>
+  <tr>
+    <td>EContractSignRequest</td>
+    <td>400</td>
+    <td>
+      400: không tìm thấy thông tin hợp đồng <br />
+      400: random from econtract system
+    </td>
+  </tr>
+  <tr>
+    <td>EContractSignConfirm</td>
+    <td>400</td>
+    <td>
+      400: thiết bị kí hợp đồng không hợp lệ <br />
+      400: random from econtract system
+    </td>
+  </tr>
+  <tr>
+    <td>EContractSignRenewOTP</td>
+    <td>400</td>
+    <td>
+      400: thiết bị kí hợp đồng không hợp lệ <br />
+      400: random from econtract system
+      <br />
+      400: không tìm thấy thông tin hợp đồng <br />
+      400: không tìm thấy thông tin thiết bị ký
+    </td>
+  </tr>
+  <tr>
+    <td>EContractSignReject</td>
+    <td>400</td>
+    <td>
+      400: random from econtract system
+      <br />
+      400: không tìm thấy thông tin hợp đồng
+    </td>
+  </tr>
+  <tr>
+    <td>CardActiveTicketSave</td>
+    <td></td>
+    <td>working</td>
+  </tr>
+  <tr>
+    <td>CMSCardQuery</td>
+    <td>400</td>
+    <td>Bad Request</td>
+  </tr>
+  <tr>
+    <td>CMSLockUnlockCardQuery</td>
+    <td></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td>CMSLockUnlockCard</td>
+    <td>400</td>
+    <td>
+      400: Khách hàng chỉ được phép khóa thẻ và mở thẻ 10 lần trong 1 ngày
+      <br />
+      400: Thẻ bị khóa bởi Vietcredit. KH không thể thực hiện mở khóa thẻ. (Vui
+      lòng liên hệ TĐ 19006515)
+    </td>
+  </tr>
+  <tr>
+    <td>CMSTransactionSearch</td>
+    <td></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td rowspan="2">CardPINUpdate</td>
+    <td>400</td>
+    <td>
+      400: Trạng thái thẻ không hợp lệ
+      <br />
+      400: PIN không hợp lệ, phải là 4 chữ số
+    </td>
+  </tr>
+  <tr>
+    <td>423</td>
+    <td>Chức năng này đã bị khóa do bạn nhập PIN sai 3 lần liên tiếp</td>
+  </tr>
+  <tr>
+    <td style={{ textDecoration: "line-through" }}>sendsms</td>
+    <td style={{ textDecoration: "line-through" }}>400</td>
+    <td style={{ textDecoration: "line-through" }}>Cannot request API</td>
+  </tr>
+  <tr>
+    <td>SmsNotify</td>
+    <td>400</td>
+    <td>Bad Request</td>
+  </tr>
+  <tr>
+    <td>EmailNotify</td>
+    <td>400</td>
+    <td>Bad Request</td>
+  </tr>
+  <tr>
+    <td>ChipIDDataSave</td>
+    <td>400</td>
+    <td>Số điện thoại không đúng định dạng</td>
+  </tr>
+  <tr>
+    <td>CMSBlockATMPOSTrans</td>
+    <td>400</td>
+    <td>Bad Request</td>
+  </tr>
+  <tr>
+    <td>CMSActivateVirtualCard</td>
+    <td>400</td>
+    <td>Bad Request</td>
+  </tr>
+  <tr>
+    <td rowspan="5">LoanApplicationCreate</td>
+    <td>400</td>
+    <td>
+      Số điện thoại đã được sử dụng. Trùng với hồ sơ [HUỲNH HỮU LỘC] - trạng
+      thái [0] - có thể tạo mới sau 06 ngày 00 giờ 17 phút.
+    </td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>
+      CMND / CCCD đã được sử dụng. Trùng với hồ sơ [HUỲNH HỮU LỘC] - trạng thái
+      [0] - có thể tạo mới sau 06 ngày 23 giờ 60 phút.
+    </td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Số điện thoại không đúng định dạng</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>CMND/ CCCD không đúng định dạng</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>
+      Field <i>Example</i> is required.
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="6">Purchase</td>
+    <td>400</td>
+    <td>Kênh giao dịch đang bảo trì</td>
+  </tr>
+  <tr>
+    <td>404</td>
+    <td>Không tìm thấy dữ liệu</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Khách hàng không có số dư</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>
+      Số tiền thanh toán không được vượt quá <Quotes />
+    </td>
+  </tr>
+  <tr>
+    <td>409</td>
+    <td>Hệ thống đã ghi nhận và đang xử lý giao dịch</td>
+  </tr>
+  <tr>
+    <td>409</td>
+    <td>Số lần thanh toán vượt quá số lần quy định trong ngày</td>
+  </tr>
+  <tr>
+    <td rowspan="5">PurchaseReversal</td>
+    <td>409</td>
+    <td>Hệ thống đã ghi nhận và đang xử lý giao dịch</td>
+  </tr>
+  <tr>
+    <td>404</td>
+    <td>Không tìm thấy giao dịch trong hệ thống</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Số tiền giao dịch không chính xác</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Hệ thống đã ghi nhận và đang xử lý giao dịch</td>
+  </tr>
+  <tr>
+    <td>420</td>
+    <td>Yêu cầu không thỏa điều kiện</td>
+  </tr>
+</table>
+
+## Response Code Definition Table
+
+| Definition    | Remark                                                                                   |
+| ------------- | ---------------------------------------------------------------------------------------- |
+| Mandatory (M) | Required when call API                                                                   |
+| Optional (O)  | DO NOT Required when call API                                                            |
+| Condition (C) | Base on Condition of another field when call API, that field can be Required or Optional |
+| Yes (Y)       | Encrypt data when call API                                                               |
+| No (N)        | DO NOT encrypt data when call API                                                        |
+
+## Script to create API request body (pre-script Postman)
+
+```javascript
+var date = new Date();
+var year = date.getFullYear();
+var month = "0" + (date.getMonth() + 1);
+var day = "0" + date.getDate();
+var hour = "0" + date.getHours();
+var minute = "0" + date.getMinutes();
+var second = "0" + date.getSeconds();
+var datetime =
+  "" +
+  year +
+  month.substring(month.length - 2) +
+  day.substring(day.length - 2) +
+  hour.substring(hour.length - 2) +
+  minute.substring(minute.length - 2) +
+  second.substring(second.length - 2);
+
+function S4() {
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+}
+
+var guid = (
+  S4() +
+  S4() +
+  "-" +
+  S4() +
+  "-4" +
+  S4().substr(0, 3) +
+  "-" +
+  S4() +
+  "-" +
+  S4() +
+  S4() +
+  S4()
+).toLowerCase();
+
+// Password is encrypted
+var passwordOld = "Aa123456@";
+var passwordNew = "Aa123456#";
+var encryptKey = pm.environment.get("EncryptKey");
+var secrectKey = (encryptKey + guid).substring(0, 32);
+var key = CryptoJS.enc.Utf8.parse(secrectKey);
+var iv = CryptoJS.enc.Utf8.parse(secrectKey);
+
+var passwordOldEncrypt = CryptoJS.AES.encrypt(passwordOld, key, {
+  iv: iv,
+  mode: CryptoJS.mode.ECB,
+}).toString();
+var passwordNewEncrypt = CryptoJS.AES.encrypt(passwordNew, key, {
+  iv: iv,
+  mode: CryptoJS.mode.ECB,
+}).toString();
+
+// OTP code is encrypted
+var otpNumber = "225369";
+var otpNumberHashed = CryptoJS.SHA256(otpNumber + guid).toString();
+
+var data = {
+  Username: "0987654321",
+  Password: passwordEncrypt,
+  DeviceID: "1234567890",
+  DeviceOSVersion: "ios 13.0",
+  DeviceModel: "iPhone 11",
+};
+
+var json = {
+  RequestID: guid,
+  RequestDateTime: datetime,
+  Function: "CustomerAccountLogin",
+  Data: JSON.stringify(data),
+};
+postman.setEnvironmentVariable("json", JSON.stringify(json));
+// Signature
+var salt = pm.environment.get("SignatureSalt");
+var signData = json["Data"] + salt;
+var signature = CryptoJS.SHA256(signData);
+postman.setGlobalVariable("signature", signature);
+```
+
+## Action Code Definition Table
+
+| ID  | ActionCode      | Description                                  |
+| --- | --------------- | -------------------------------------------- |
+| 1   | AccountRegister | OTP đăng ký mới khách hàng                   |
+| 2   | EContractSign   | OTP ký hợp đồng điện tử                      |
+| 3   | DeviceUpdate    | OTP cập nhật đổi thiết bị khi ký hợp đồng đt |
+| 4   | AccountRegister | OTP kích hoạt app lần đầu/thiết bị khác      |
+| 5   | PasswordReset   | OTP lấy lại mật khẩu                         |
+| 6   | PasswordReset   | OTP đổi mật khẩu                             |
+| 7   | ActiveCard      | OTP kích hoạt thẻ                            |
+| 8   | ChangePIN       | OTP đổi pin                                  |
+| 9   | Payment         | OTP thanh toán dư nợ thẻ                     |
+| 10  | Purchase        | OTP giao dịch tài chính: thanh toán QR       |
+
+<DocCardList />

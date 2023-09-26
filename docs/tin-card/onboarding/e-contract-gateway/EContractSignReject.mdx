@@ -1,3 +1,67 @@
 ---
 title: EContractSignReject
+description: Từ chối ký Econtract.
 ---
+
+Từ chối ký Econtract. <br/>
+(Ngay màn hình bước chọn “Xác nhận hợp đồng ” có nút từ chối ký., nếu KH bấm nút từ chối, thì gọi API này).
+
+## Request
+
+| Level | Field Name      | Data Type  | Required | Description                                                                    |
+| ----- | --------------- | ---------- | -------- | ------------------------------------------------------------------------------ |
+| 1     | RequestID       | String(50) | M        | GUID                                                                           |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                 |
+| 1     | Function        | String     | M        | Trùng với tên API                                                              |
+| 1     | Data            | String     | M        | Chứa [Data Content of request](#data-content-of-request) thay đổi tùy theo API |
+
+## Data content of request
+
+| Level | Field Name    | Data Type | Required | Description                                                             |
+| ----- | ------------- | --------- | -------- | ----------------------------------------------------------------------- |
+| 2     | CIFNumber     | int       | M        | Số CIF của Khách hàng                                                   |
+| 2     | EContractCode | String    | M        | Sử dụng field EContractCode trong response của EContractSignRequest API |
+| 3     | Reason        | String    | M        | Lý do từ chối                                                           |
+| 3     | location      |           | M        | Thông tin vị trí khách hàng                                             |
+| 3     | deviceInfo    |           | M        | Thông tin thiết bị khách hàng                                           |
+
+```javascript
+var data = {
+  CIFNumber: CIFNumber,
+  EContractCode: EContractCode,
+  Reason: "Test hủy ký",
+  location: {
+    latitude: 100,
+    longitude: 2.1,
+    geoLocation: "Hà Nội, Việt Nam",
+  },
+  deviceInfo: {
+    appCodeName: "VC-MB-App",
+    appName: "VietCredit App",
+    appVersion: "1.0.0",
+    language: "vi-vn",
+    deviceType: "Android",
+    deviceId: "12dmlkljvhy12",
+    deviceName: "Samsung S9",
+  },
+};
+```
+
+# Response
+
+| Level | Field Name      | Data Type  | Required | Description                                                                      |
+| ----- | --------------- | ---------- | -------- | -------------------------------------------------------------------------------- |
+| 1     | RequestID       | String(50) | M        | GUID                                                                             |
+| 1     | RequestDateTime | String(50) | M        | yyyyMMddHHmmss                                                                   |
+| 1     | ResponseCode    | String(3)  | M        | Xem bảng ResponseCodeData                                                        |
+| 1     | Function        | String     | M        | Trùng với tên API                                                                |
+| 1     | Data            | String     | M        | Chứa [Data Content of response](#data-content-of-response) thay đổi tùy theo API |
+| 1     | Description     | String     | M        | Mô tả ResponseCode                                                               |
+
+## Data content of response
+
+```json
+{
+  "IsSuccess": true
+}
+```
