@@ -4,10 +4,12 @@ import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
 const RenderImage = ({ url }) => {
+  const { siteConfig } = useDocusaurusContext();
+  const baseUrl = siteConfig.baseUrl.replace("/", "");
   return (
     <div className="each-slide-effect">
       <img
-        src={url}
+        src={`${baseUrl ? "/" + baseUrl : ""}${url}`}
         style={{
           maxHeight: "30%",
           maxWidth: "100%",

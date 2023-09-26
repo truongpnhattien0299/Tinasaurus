@@ -3,7 +3,7 @@ require("dotenv").config();
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL || "/";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL;
 
 const getDocId = (doc) => {
   return doc
@@ -91,7 +91,7 @@ const config = {
   title: docusaurusData.title || "My Site",
   tagline: docusaurusData.tagline || "Dinosaurs are cool",
   url: docusaurusData.url || "https://tinasaurus.vercel.app/",
-  baseUrl: baseUrl || "/",
+  baseUrl: baseUrl,
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",

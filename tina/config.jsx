@@ -832,7 +832,7 @@ export default defineConfig({
   build: {
     outputFolder: "admin",
     publicFolder: "static",
-    basePath: baseUrl,
+    basePath: baseUrl.replace("/", ""),
   },
   media: {
     tina: {
